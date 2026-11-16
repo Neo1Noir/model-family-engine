@@ -1,0 +1,75 @@
+{
+  "models": {
+    "METER100": {
+      "family": "METER100",
+      "aliases": []
+    }
+  },
+  "selection_rules": [
+    {
+      "canonical_model": "METER100",
+      "document_scope": "standard",
+      "verification_status": "pending",
+      "rule_json": {
+        "schema_key": "METER100",
+        "doc": "synthetic-manual.pdf",
+        "source_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "physical_pages": [
+          2
+        ],
+        "source_excerpts": [
+          "Synthetic selection table: input B requires communication X."
+        ],
+        "dims": [
+          {
+            "type": "single",
+            "required": true,
+            "codes": {
+              "A": {
+                "brief": "Input A"
+              },
+              "B": {
+                "brief": "Input B"
+              }
+            }
+          },
+          {
+            "type": "single",
+            "required": false,
+            "codes": {
+              "X": {
+                "brief": "Communication X"
+              }
+            }
+          }
+        ],
+        "deterministic": {
+          "version": 1,
+          "patterns": [
+            "METER100-①-②"
+          ],
+          "constraints": [
+            {
+              "when": {
+                "1": [
+                  "B"
+                ]
+              },
+              "require": {
+                "2": [
+                  "X"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "review": {
+    "decision": "pending",
+    "reviewer": "",
+    "reviewed_at": "",
+    "basis": ""
+  }
+}

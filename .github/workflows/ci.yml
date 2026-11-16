@@ -1,0 +1,25 @@
+name: CI
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.23.x'
+          cache: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: go test ./...
+      - run: go vet ./...
+      - run: python -m unittest -q
+      - run: go run ./cmd/model-family approve --input examples/candidate.json --reviewer CI --basis "Synthetic fixture review" --out out/reviewed.json
+      - run: go run ./cmd/model-family compile --input out/reviewed.json --version ci-v1 --out out/index.json
+      - run: go run ./cmd/model-family match --input out/index.json --model METER100-B-X
